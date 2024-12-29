@@ -20,7 +20,7 @@ const Layout = () => {
         options ={{
           title: 'Satguru Panth',
           tabBarLabel: 'Home',
-          tabBarIcon: ({ focused })=> <AntDesign name="home" size={24} color= {focused ?"blue" : "#000"}/>,
+          tabBarIcon: ({ focused })=> <MaterialCommunityIcons name="home" size={24} color= {focused ?"blue" : "#000"}/>,
         }}
       />
       <Tab.Screen name='explore' component={Explore}
@@ -35,7 +35,7 @@ const Layout = () => {
         options ={{
           title: 'Library',
           tabBarLabel: 'Library',
-          tabBarIcon: ({ focused })=> <MaterialCommunityIcons name="comment-search" size={24} color={focused ?"blue" : "#000"} />
+          tabBarIcon: ({ focused })=> <MaterialCommunityIcons name="bookmark" size={24} color={focused ?"blue" : "#000"} />
         }}
       
       />
