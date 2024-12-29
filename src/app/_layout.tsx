@@ -6,7 +6,7 @@ import Profile from './screen/Profile';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import Search from './screen/Search';
+import Explore from './screen/Explore';
 
 
 
@@ -18,23 +18,23 @@ const Layout = () => {
       <Tab.Screen 
         name='forYou' component={ForYou}
         options ={{
-          title: 'Brahm Gyan Yog',
-          tabBarLabel: 'For You',
-          tabBarIcon: ({ focused })=> <AntDesign name="eye" size={24} color= {focused ?"blue" : "#000"}/>,
+          title: 'Satguru Panth',
+          tabBarLabel: 'Home',
+          tabBarIcon: ({ focused })=> <AntDesign name="home" size={24} color= {focused ?"blue" : "#000"}/>,
         }}
       />
-      <Tab.Screen name='library' component={Library}
+      <Tab.Screen name='explore' component={Explore}
         options ={{
           title: 'Your Collection',
-          tabBarLabel: 'Library',
-          tabBarIcon: ({ focused })=> <MaterialCommunityIcons name="bookshelf" size={24} color={focused ?"blue" : "#000"} />
+          tabBarLabel: 'Explore',
+          tabBarIcon: ({ focused })=> <MaterialCommunityIcons name="compass" size={24} color={focused ?"blue" : "#000"} />
         }}
 
       />
-      <Tab.Screen name='search' component={Search}
+      <Tab.Screen name='library' component={Library}
         options ={{
-          title: 'Search',
-          tabBarLabel: 'Search',
+          title: 'Library',
+          tabBarLabel: 'Library',
           tabBarIcon: ({ focused })=> <MaterialCommunityIcons name="comment-search" size={24} color={focused ?"blue" : "#000"} />
         }}
       
