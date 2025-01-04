@@ -2,6 +2,11 @@
   "expo": {
     "name": "BrahmgyanApp",
     "slug": "brahmgyanApp",
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./src/assets/images/icon.png",
@@ -14,13 +19,15 @@
       "backgroundColor": "#E3E0CF"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.anonymous.brahmgyanApp"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./src/assets/images/icon.png",
         "backgroundColor": "#E3E0CF"
-      }
+      },
+      "package": "com.anonymous.brahmgyanApp"
     },
     "web": {
       "bundler": "metro",
@@ -42,6 +49,15 @@
     ],
     "experiments": {
       "typedRoutes": true
-    }
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "3df60831-009c-42ad-aa19-d4d3c52b1ff8"
+      }
+    },
+    "owner": "aastha1008"
   }
 }
