@@ -8,6 +8,11 @@ export const commonStyles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: Colors.background
+        backgroundColor: Colors.background,
+        padding: 0,
+        margin: 0
+    },
+    center:{
+        textAlign:'center'
     }
 })

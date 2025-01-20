@@ -24,7 +24,7 @@ const CustomText:FC<CustomTextProps> = ({
 }) => {
   return (
     <Text
-        style={[styles.text, {fontSize: RFValue(fontSize ? fontSize : fontSizes[variant]) , fontFamily: `NotoSans-${fontFamily}`}, style]}
+        style={[styles.text, {fontSize: RFValue(fontSize ? fontSize : fontSizes[variant]) , fontFamily: `Rubik-${fontFamily}`}, style]}
         numberOfLines={numberOfLines ? numberOfLines : undefined}
     >
         {children}

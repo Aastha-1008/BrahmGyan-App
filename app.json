@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "BrahmgyanApp",
-    "slug": "brahmgyanApp",
+    "name": "Brahmgyanapp",
+    "slug": "brahmgyanapp",
     "platforms": [
       "ios",
       "android",
@@ -20,14 +20,14 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.anonymous.brahmgyanApp"
+      "bundleIdentifier": "com.anonymous.brahmgyanapp"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./src/assets/images/icon.png",
         "backgroundColor": "#E3E0CF"
       },
-      "package": "com.anonymous.brahmgyanApp"
+      "package": "com.anonymous.brahmgyanapp"
     },
     "web": {
       "bundler": "metro",
@@ -45,7 +45,8 @@
           "backgroundColor": "#E3E0CF"
         }
       ],
-      "expo-font"
+      "expo-font",
+      "expo-video"
     ],
     "experiments": {
       "typedRoutes": true

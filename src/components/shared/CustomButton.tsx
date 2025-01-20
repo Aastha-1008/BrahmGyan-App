@@ -12,7 +12,7 @@ const CustomButton: FC<CustomButtonProps> = ({onPress , title , disabled , loadi
             activeOpacity={0.8}
             style={[
                 styles.container , {
-                    backgroundColor: disabled? Colors.secondary : Colors.primary
+                    backgroundColor: '#000066'
                 }
             ]}
         >
@@ -21,8 +21,8 @@ const CustomButton: FC<CustomButtonProps> = ({onPress , title , disabled , loadi
                 <CustomText 
                     fontFamily='SemiBold' 
                     style={{
-                        fontSize: RFValue(12),
-                        color: disabled ? '#fff' : Colors.text
+                        fontSize: RFValue(15),
+                        color: '#fff'
                     }}  
                 > 
                     {title} 
@@ -36,13 +36,14 @@ const CustomButton: FC<CustomButtonProps> = ({onPress , title , disabled , loadi
 
 const styles = StyleSheet.create({
     container: {
-        borderRadius: 10,
+        borderRadius: 20,
         margin: 10 , 
         padding: 10,
         height: 45,
         justifyContent: 'center',
         alignItems: 'center',
-        width: '100%'
+        width: '90%',
+        marginTop: 40
     }
 })
 
