@@ -1,61 +1,135 @@
-import React from 'react';
+import React, { ReactNode, useEffect, useState } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Platform, SafeAreaView, View } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
-import ForYou from './MainSection/ForYou';
-import Explore from './MainSection/Explore';
-import Library from './MainSection/Library';
-import Profile from './MainSection/Profile';
+import { GetAllBooks } from '@/components/API/BooksAPI';
+
+// Import correct path for ForYou - adjust if needed
+import ForYou from '../Screens/MainSection/ForYou';
+import Library from '../Screens/MainSection/Library';
+import Profile from '../Screens/MainSection/Profile';
 
 const Tab = createBottomTabNavigator();
 
-const BottomTabs = () => {
+
+// Safe area wrapper component with proper typing
+interface SafeAreaWrapperProps {
+  children: ReactNode;
+}
+
+const SafeAreaWrapper = ({ children }: SafeAreaWrapperProps) => {
   return (
-    <Tab.Navigator>
+    <SafeAreaView style={{ flex: 1, backgroundColor: '#FFFFFF' }}>
+      {children}
+    </SafeAreaView>
+  );
+};
+
+
+const BottomTabs = ({navigation}:any) => {
+
+  const [allBooks, setAllBooks] = useState<any[]>([]);
+
+  useEffect(() => {
+    const fetchAllBooks = async () => {
+      try {
+        const newReleasedBooks = await GetAllBooks(); // Wait for the API response
+        setAllBooks(newReleasedBooks); // Set the data in state
+        console.log(newReleasedBooks);
+      } catch (error) {
+        console.error('Error fetching new releases for you class:', error);
+      }
+    };
+    fetchAllBooks();
+  }, []);
+
+
+  return (
+    <Tab.Navigator
+      screenOptions={{
+        headerShown: false,
+        tabBarStyle: {
+          backgroundColor: '#FFFFFF',
+          // iOS specific shadow properties
+          shadowOpacity: 0.1,
+          shadowRadius: 4,
+          shadowColor: '#000',
+          shadowOffset: { width: 0, height: -2 },
+          // Android specific elevation
+          elevation: 5,
+          // Ensure proper padding and height
+          height: Platform.OS === 'ios' ? 90 : 60,
+          borderTopWidth: 1,
+          borderTopColor: '#EEEEEE',
+        },
+        tabBarLabelStyle: {
+          fontSize: 12,
+          marginBottom: Platform.OS === 'ios' ? 8 : 0,
+        },
+        tabBarActiveTintColor: 'blue',
+        tabBarInactiveTintColor: '#000',
+        tabBarItemStyle: {
+          paddingTop: Platform.OS === 'ios' ? 10 : 0,
+        },
+      }}
+    >
       <Tab.Screen
         name="forYou"
-        component={ForYou}
         options={{
           title: 'Satguru Panth',
           tabBarLabel: 'Home',
-          tabBarIcon: ({ focused }) => (
-            <MaterialCommunityIcons name="home" size={24} color={focused ? 'blue' : '#000'} />
+          tabBarIcon: ({ color, size }) => (
+            <View style={{ height: 24, width: 24, alignItems: 'center', justifyContent: 'center' }}>
+              <MaterialCommunityIcons
+                name="home"
+                size={size}
+                color={color}
+              />
+            </View>
           ),
         }}
-      />
-      <Tab.Screen
-        name="explore"
-        component={Explore}
-        options={{
-          title: 'Your Collection',
-          tabBarLabel: 'Explore',
-          tabBarIcon: ({ focused }) => (
-            <MaterialCommunityIcons name="compass" size={24} color={focused ? 'blue' : '#000'} />
-          ),
-        }}
-      />
+      >
+        {() => <ForYou navigation={navigation} allBooks={allBooks} />}
+
+      </Tab.Screen>
       <Tab.Screen
         name="library"
-        component={Library}
         options={{
           title: 'Library',
           tabBarLabel: 'Library',
-          tabBarIcon: ({ focused }) => (
-            <MaterialCommunityIcons name="bookmark" size={24} color={focused ? 'blue' : '#000'} />
+          tabBarIcon: ({ color, size }) => (
+            <View style={{ height: 24, width: 24, alignItems: 'center', justifyContent: 'center' }}>
+              <MaterialCommunityIcons
+                name="bookmark"
+                size={size}
+                color={color}
+              />
+            </View>
           ),
         }}
-      />
+      >
+        {() => <Library navigation={navigation} allBooks = {allBooks}/>}
+      </Tab.Screen>
       <Tab.Screen
         name="profile"
-        component={Profile}
         options={{
           title: 'Profile',
           tabBarLabel: 'Profile',
-          tabBarIcon: ({ focused }) => (
-            <Ionicons name="person-add-sharp" size={24} color={focused ? 'blue' : '#000'} />
+          tabBarIcon: ({ color, size }) => (
+            <View style={{ height: 24, width: 24, alignItems: 'center', justifyContent: 'center' }}>
+              <Ionicons
+                name="person-add-sharp"
+                size={size}
+                color={color}
+              />
+            </View>
           ),
         }}
-      />
+      >
+        {() => <Profile navigation={navigation} />}
+
+      </Tab.Screen>
     </Tab.Navigator>
   );
 };

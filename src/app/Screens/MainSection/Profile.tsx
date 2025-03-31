@@ -1,128 +1,215 @@
 import React from 'react';
-import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import { 
+  View, 
+  Image, 
+  TouchableOpacity, 
+  StyleSheet, 
+  SafeAreaView,
+  ScrollView,
+  Platform
+} from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
+import { StackNavigationProp } from '@react-navigation/stack';
+import CustomText from '@/components/shared/CustomText';
 
-const Profile = ({navigation}:any) => {
+// Define navigation types
+type ProfileStackParamList = {
+  library: undefined;
+  editProfile: undefined;
+  aboutSatguruPanth: undefined;
+  contactUs: undefined;
+  notifications: undefined;
+  loginPage: undefined;
+};
 
-  const wishlist=()=>{
-    navigation.navigate('library')
-  }
+type ProfileScreenNavigationProp = StackNavigationProp<ProfileStackParamList>;
+
+interface ProfileProps {
+  navigation: ProfileScreenNavigationProp;
+}
+
+const Profile: React.FC<ProfileProps> = ({ navigation }) => {
+  const wishlist = () => {
+    navigation.navigate('library');
+  };
 
   const profile = () => {
-    console.log("i");
-    navigation.navigate('editProfile')
-  }
+    navigation.navigate('editProfile');
+  };
 
   const aboutSatguruPanth = () => {
-    navigation.navigate('aboutSatguruPanth')
-  }
+    navigation.navigate('aboutSatguruPanth');
+  };
 
-  const  contactUs = () => {
-    navigation.navigate('contactUs')
-  }
+  const contactUs = () => {
+    navigation.navigate('contactUs');
+  };
 
+  const notifications = () => {
+    navigation.navigate('notifications');
+  };
+
+  const signOut = () => {
+    // Add sign out logic here
+    navigation.navigate('loginPage');
+  };
+
+  // Main render with SafeAreaView properly applied
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <Image
-          source={require('../../../assets/images/Amish.png')}
-          style={styles.profileImage}
-        />
-        <Text style={styles.name}>Amish Mishra</Text>
-        <View style={styles.statusContainer}>
-          <View style={styles.statusDot} />
-          <Text style={styles.status}>Active</Text>
-        </View>
+    <SafeAreaView style={styles.safeArea}>
+      <View style={styles.container}>
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <View style={styles.header}>
+            <Image
+              source={require('@/assets/images/icon.png')} // Update with your actual image path
+              style={styles.profileImage}
+            />
+            <View style={styles.headerTextContainer}>
+              <CustomText variant="h5" fontFamily="Bold" style={styles.name}>
+                Amish Mishra
+              </CustomText>
+              <View style={styles.statusContainer}>
+                <View style={styles.statusDot} />
+                <CustomText variant="h8" fontFamily="Regular" style={styles.status}>
+                  Active
+                </CustomText>
+              </View>
+            </View>
+          </View>
+
+          <View style={styles.profileCard}>
+            <TouchableOpacity style={styles.optionContainer}>
+              <View style={styles.optionIconContainer}>
+                <MaterialIcons name="location-on" size={22} color="#000" />
+              </View>
+              <CustomText variant="h6" fontFamily="Medium" style={styles.optionText}>
+                Delhi in India
+              </CustomText>
+              <CustomText variant="h7" fontFamily="Medium" style={styles.optionAction}>
+                Update
+              </CustomText>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.optionContainer} onPress={profile}>
+              <View style={styles.optionIconContainer}>
+                <MaterialIcons name="person" size={22} color="#000" />
+              </View>
+              <CustomText variant="h6" fontFamily="Medium" style={styles.optionText}>
+                Profile
+              </CustomText>
+              <MaterialIcons name="chevron-right" size={22} color="#000" />
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.optionContainer} onPress={wishlist}>
+              <View style={styles.optionIconContainer}>
+                <MaterialIcons name="favorite" size={22} color="#000" />
+              </View>
+              <CustomText variant="h6" fontFamily="Medium" style={styles.optionText}>
+                Wishlist
+              </CustomText>
+              <CustomText variant="h7" fontFamily="Regular" style={styles.optionAction}>
+                3 Books in Wishlist
+              </CustomText>
+            </TouchableOpacity>
+          </View>
+
+          <View style={styles.divider} />
+
+          <View style={styles.profileCard}>
+            <TouchableOpacity style={styles.optionContainer} onPress={aboutSatguruPanth}>
+              <View style={styles.optionIconContainer}>
+                <MaterialIcons name="info" size={22} color="#000" />
+              </View>
+              <CustomText variant="h6" fontFamily="Medium" style={styles.optionText}>
+                About Satguru Panth
+              </CustomText>
+              <MaterialIcons name="chevron-right" size={22} color="#000" />
+            </TouchableOpacity>
+
+            <TouchableOpacity 
+              style={styles.optionContainer} 
+              onPress={notifications}
+            >
+              <View style={styles.optionIconContainer}>
+                <MaterialIcons name="notifications" size={22} color="#000" />
+              </View>
+              <CustomText variant="h6" fontFamily="Medium" style={styles.optionText}>
+                Notification Settings
+              </CustomText>
+              <MaterialIcons name="chevron-right" size={22} color="#000" />
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.optionContainer} onPress={contactUs}>
+              <View style={styles.optionIconContainer}>
+                <MaterialIcons name="phone" size={22} color="#000" />
+              </View>
+              <CustomText variant="h6" fontFamily="Medium" style={styles.optionText}>
+                Contact Us
+              </CustomText>
+              <MaterialIcons name="chevron-right" size={22} color="#000" />
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.optionContainer}>
+              <View style={styles.optionIconContainer}>
+                <MaterialIcons name="share" size={22} color="#000" />
+              </View>
+              <CustomText variant="h6" fontFamily="Medium" style={styles.optionText}>
+                Share this App
+              </CustomText>
+              <CustomText variant="h7" fontFamily="Regular" style={styles.optionAction}>
+                Share with friends
+              </CustomText>
+            </TouchableOpacity>
+          </View>
+
+          <TouchableOpacity style={styles.signOutButton} onPress={signOut}>
+            <MaterialIcons name="exit-to-app" size={22} color="white" />
+            <CustomText variant="h6" fontFamily="Bold" style={styles.signOutText}>
+              Sign out
+            </CustomText>
+          </TouchableOpacity>
+
+          <View style={styles.versionContainer}>
+            <CustomText variant="h8" fontFamily="Regular" style={styles.versionText}>
+              Version 1.0.0
+            </CustomText>
+          </View>
+        </ScrollView>
       </View>
-
-      <TouchableOpacity style={styles.optionContainer}>
-        <View style={styles.optionIcon}>
-          <MaterialIcons name="location-on" size={24} color="black" />
-        </View>
-        <Text style={styles.optionText}>Delhi in India</Text>
-        <Text style={styles.optionAction}>Update</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity style={styles.optionContainer} onPress={profile}>
-        <View style={styles.optionIcon}>
-          <MaterialIcons name="person" size={24} color="black" />
-        </View>
-        <Text style={styles.optionText}>Profile</Text>
-        <MaterialIcons name="chevron-right" size={24} color="black" />
-      </TouchableOpacity>
-
-      <TouchableOpacity style={styles.optionContainer} onPress={wishlist}>
-        <View style={styles.optionIcon}>
-          <MaterialIcons name="favorite" size={24} color="black" />
-        </View>
-        <Text style={styles.optionText}>Wishlist</Text>
-        <Text style={styles.optionAction}>3 Books in Wishlist</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity style={styles.optionContainer} onPress={aboutSatguruPanth}>
-        <View style={styles.optionIcon}>
-          <MaterialIcons name="info" size={24} color="black" />
-        </View>
-        <Text style={styles.optionText}>About Satguru Panth</Text>
-        <MaterialIcons name="chevron-right" size={24} color="black" />
-      </TouchableOpacity>
-
-
-      {/* Add more options similarly */}
-
-      <TouchableOpacity style={styles.optionContainer}>
-        <View style={styles.optionIcon}>
-          <MaterialIcons name="notifications" size={24} color="black" />
-        </View>
-        <Text style={styles.optionText}>Notification Settings</Text>
-        <MaterialIcons name="chevron-right" size={24} color="black" />
-      </TouchableOpacity>
-
-      {/* ... other options ... */}
-
-      <TouchableOpacity style={styles.optionContainer} onPress={contactUs}>
-        <View style={styles.optionIcon}>
-          <MaterialIcons name="phone" size={24} color="black" />
-        </View>
-        <Text style={styles.optionText}>Contact Us</Text>
-        <MaterialIcons name="chevron-right" size={24} color="black" />
-      </TouchableOpacity>
-
-      <TouchableOpacity style={styles.optionContainer}>
-        <View style={styles.optionIcon}>
-          <MaterialIcons name="share" size={24} color="black" />
-        </View>
-        <Text style={styles.optionText}>Share this App</Text>
-        <Text style={styles.optionAction}>Need to Add App link here in future</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity style={styles.signOutButton}>
-        <MaterialIcons name="exit-to-app" size={24} color="white" />
-        <Text style={styles.signOutText}>Sign out</Text>
-      </TouchableOpacity>
-    </View>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+    backgroundColor: '#f0f0f0',
+  },
   container: {
     flex: 1,
-    padding: 20,
+    paddingHorizontal: 20,
+    paddingTop: Platform.OS === 'ios' ? 0 : 25, // Only add top padding on Android
   },
   header: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 20,
+    marginVertical: 20,
+  },
+  headerTextContainer: {
+    flexDirection: 'column',
+    justifyContent: 'center',
   },
   profileImage: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
-    marginRight: 10,
+    width: 70,
+    height: 70,
+    borderRadius: 35,
+    marginRight: 15,
+    borderWidth: 2,
+    borderColor: '#fff',
   },
   name: {
-    fontSize: 18,
-    fontWeight: 'bold',
+    color: '#000',
+    marginBottom: 4,
   },
   statusContainer: {
     flexDirection: 'row',
@@ -136,38 +223,68 @@ const styles = StyleSheet.create({
     marginRight: 5,
   },
   status: {
-    color: 'gray',
+    color: '#666',
+  },
+  profileCard: {
+    backgroundColor: '#fff',
+    borderRadius: 12,
+    padding: 5,
+    marginBottom: 15,
+    elevation: 2,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.1,
+    shadowRadius: 2,
   },
   optionContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingVertical: 15,
+    paddingHorizontal: 15,
     borderBottomWidth: 1,
-    borderBottomColor: '#ccc',
+    borderBottomColor: '#f0f0f0',
   },
-  optionIcon: {
+  optionIconContainer: {
+    width: 36,
+    height: 36,
+    backgroundColor: '#f0f0f0',
+    borderRadius: 18,
+    justifyContent: 'center',
+    alignItems: 'center',
     marginRight: 15,
   },
   optionText: {
     flex: 1,
+    color: '#000',
   },
   optionAction: {
-    color: 'blue',
+    color: '#666',
+  },
+  divider: {
+    height: 15,
   },
   signOutButton: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#333',
-    padding: 15,
-    borderRadius: 5,
-    marginTop: 20,
+    backgroundColor: '#000',
+    paddingVertical: 15,
+    borderRadius: 10,
+    marginTop: 10,
+    marginBottom: 15,
   },
   signOutText: {
     color: 'white',
-    marginLeft: 5,
+    marginLeft: 8,
   },
+  versionContainer: {
+    alignItems: 'center',
+    marginBottom: 30,
+  },
+  versionText: {
+    color: '#666',
+  }
 });
 
 export default Profile;

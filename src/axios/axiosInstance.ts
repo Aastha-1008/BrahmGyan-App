@@ -30,4 +30,15 @@ export const getUser = async () => {
     }
 };
 
+export const getNewReleasedBooks = async () => {
+    try{
+        const response = await axiosInstance.get(`/books/getNewReleasedBooks`);
+        console.log(response);
+        return response.data;
+    }catch(error){
+        console.error("Error fetching books data: ",error);
+        throw error;
+    }
+}
+
 export default axiosInstance;

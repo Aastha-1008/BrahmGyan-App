@@ -13,6 +13,52 @@ type RegisterLoginParam = {
     navigation: any
 }
 
+type LoginData = {
+    phoneNumber: any,
+    navigation: any
+}
+
+
+export const GetNewReleasedBookd = async() => {
+    const response = await axios.post('http://localhost:3000/books/getNewReleasedBooks',{
+        headers: {
+            'Content-Type': 'application/json',
+            "Access-Control-Allow-Origin": "*"
+        },
+        timeout: 10000,
+    });
+}
+
+export const loginHandler = async({phoneNumber,navigation}:LoginData) => {
+    if(!phoneNumber){
+        alert('Please enter valid phone number');
+        return;
+    }
+
+    try{
+        const data = {
+            phonenumber: phoneNumber
+        }
+        const response = await axios.post('http://10.5.0.2:3000/user/', data,{
+            headers: {
+                'Content-Type': 'application/json',
+                "Access-Control-Allow-Origin": "*"
+            },
+            timeout: 10000,
+        });
+
+        if (response.data.success) {
+            alert(`Registration successful, welcome to BrahmGyan App}!`);
+            navigation.navigate('bottomTabs');
+        } else {
+            alert(response.data.message || 'Registration failed');
+        }
+
+    }catch(err){
+        alert('An error occurred during login');
+    }
+
+}
 
 export const registerLoginAction = async ({email,password,firstName,lastName,dob,phoneNumber,confirmPassword,status,navigation}:RegisterLoginParam) => {
     

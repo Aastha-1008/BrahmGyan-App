@@ -23,7 +23,7 @@ const SplashScreen = ({ navigation }: any) => {
   };
 
   useEffect(() => {
-    if ( !hasNavigated) {
+    if (!hasNavigated) {
       const timeoutId = setTimeout(() => {
         tokenCheck();
         setHasNavigated(true);
@@ -31,6 +31,8 @@ const SplashScreen = ({ navigation }: any) => {
       return () => clearTimeout(timeoutId);
     }
   }, [loaded, hasNavigated]);
+
+  
 
   return (
     <View style={commonStyles.container}>
